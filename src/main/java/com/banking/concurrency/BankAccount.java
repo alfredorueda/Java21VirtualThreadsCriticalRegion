@@ -17,7 +17,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class BankAccount {
     
-    private final int accountId;
+    //private final int accountId;
     private double balance;
     
     /**
@@ -34,11 +34,7 @@ public class BankAccount {
      * @throws IllegalArgumentException if initialBalance is negative
      */
     public BankAccount(int accountId, double initialBalance) {
-        if (initialBalance < 0) {
-            throw new IllegalArgumentException("Initial balance cannot be negative");
-        }
-        this.accountId = accountId;
-        this.balance = initialBalance;
+        // Empty method body
     }
     
     /**
@@ -47,7 +43,8 @@ public class BankAccount {
      * @return The account ID
      */
     public int getAccountId() {
-        return accountId;
+        // Empty method body
+        return 0; // Placeholder return
     }
     
     /**
@@ -57,12 +54,8 @@ public class BankAccount {
      * @return The current account balance
      */
     public double getBalance() {
-        lock.lock();
-        try {
-            return balance;
-        } finally {
-            lock.unlock();
-        }
+        // Empty method body
+        return 0.0; // Placeholder return
     }
     
     /**
@@ -73,16 +66,7 @@ public class BankAccount {
      * @throws IllegalArgumentException if amount is negative or zero
      */
     public void deposit(double amount) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Deposit amount must be positive");
-        }
-        
-        lock.lock();
-        try {
-            balance += amount;
-        } finally {
-            lock.unlock();
-        }
+        // Empty method body
     }
     
     /**
@@ -94,21 +78,8 @@ public class BankAccount {
      * @throws IllegalArgumentException if amount is negative or zero
      */
     public boolean withdraw(double amount) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Withdrawal amount must be positive");
-        }
-        
-        lock.lock();
-        try {
-            // Critical section: check and update balance atomically
-            if (balance >= amount) {
-                balance -= amount;
-                return true;
-            }
-            return false;
-        } finally {
-            lock.unlock();
-        }
+        // Empty method body
+        return false; // Placeholder return
     }
     
     /**
@@ -122,34 +93,7 @@ public class BankAccount {
      * @throws IllegalArgumentException if amount is negative or zero
      */
     public boolean transferTo(BankAccount destination, double amount) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Transfer amount must be positive");
-        }
-        
-        if (this.accountId == destination.accountId) {
-            throw new IllegalArgumentException("Cannot transfer to the same account");
-        }
-        
-        // Prevent deadlocks by always acquiring locks in a consistent order (lowest ID first)
-        BankAccount firstLock = this.accountId < destination.accountId ? this : destination;
-        BankAccount secondLock = this.accountId < destination.accountId ? destination : this;
-        
-        firstLock.lock.lock();
-        try {
-            secondLock.lock.lock();
-            try {
-                // Critical section: ensure atomic operation across two accounts
-                if (this.balance >= amount) {
-                    this.balance -= amount;
-                    destination.balance += amount;
-                    return true;
-                }
-                return false;
-            } finally {
-                secondLock.lock.unlock();
-            }
-        } finally {
-            firstLock.lock.unlock();
-        }
+        // Empty method body
+        return false; // Placeholder return
     }
 }
